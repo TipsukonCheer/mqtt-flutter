@@ -11,6 +11,11 @@ server.on('ready',function(){
     console.log('Mosca server is ready')
 });
 
+server.authenticate = function(client,username,password,callback){
+    callback(null,username=='test'&&password=='test');
+    console.log(client.id+'had been authen')
+};
+
 server.on('clientConnected',function(client){
     console.log('client + : '+client.id+' has connected');
 });
