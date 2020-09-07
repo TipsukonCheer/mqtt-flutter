@@ -1,7 +1,7 @@
 let mosca = require('mosca');
 
 let setting = {
-    port : 1833,
+    port : 1883,
     host : 'localhost'
 }
 
@@ -12,7 +12,9 @@ server.on('ready',function(){
 });
 
 server.authenticate = function(client,username,password,callback){
-    callback(null,username=='test'&&password=='test');
+    console.log('authen');
+    console.log('username'+username)
+    callback(null,(username=='test'&&password=='test'));
     console.log(client.id+'had been authen')
 };
 
@@ -33,5 +35,8 @@ server.on('subscribed',function(topic,client){
 });
 
 server.on('published',function(packet,client){
-    console.log('client : '+client.id+'had published context topic: '+packet.topic +'/n' + 'with content :' + packet.payload)
+    console.log(packet);
+    console.log('Published',packet.payload.toString())
+    console.log(client)
+    // console.log('client : '+client.id+'had published context topic: '+packet.topic +'/n' + 'with content :' + packet.payload)
 });
